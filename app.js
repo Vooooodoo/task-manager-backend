@@ -1,7 +1,7 @@
-const app = require('./server');
 const bodyParser = require('body-parser');
 const helmet = require('helmet');
 const { errors } = require('celebrate');
+const app = require('./server');
 const routes = require('./routes');
 const errorHandler = require('./middlewares/errorHandler');
 
