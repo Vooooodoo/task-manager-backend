@@ -12,7 +12,7 @@ const config = {
   },
   passwordHash: {
     salt: process.env.PASSWORD_HASH_SALT,
-  }
-}
+  },
+};
 
 module.exports = config;
