@@ -45,7 +45,7 @@ const signIn = async (req, res, next) => {
       throw authErr;
     }
 
-    const isMatch = comparePasswords(password, user.password);
+    const isMatch = await comparePasswords(password, user.password);
     if (!isMatch) {
       throw authErr;
     }
