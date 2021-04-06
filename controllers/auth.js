@@ -1,4 +1,4 @@
-const models = require('../db/models');
+const db = require('../db/models');
 const { generatePassHash, comparePasswords } = require('../utils/passwordHash');
 const { createToken } = require('../utils/token');
 const AuthError = require('../errors/AuthError');
@@ -9,16 +9,19 @@ const authErr = new AuthError('Invalid email or password.');
 const signUp = async (req, res, next) => {
   try {
     const {
-      firstName, lastName, email, password,
+      firstName,
+      lastName,
+      email,
+      password,
     } = req.body;
-    const user = await models.User.findOne({ where: { email } });
+    const user = await db.User.findOne({ where: { email } });
 
     if (user) {
       throw new ValidationError('A user with this email already exists.');
     }
 
     const passwordHash = generatePassHash(password);
-    let userData = await models.User.create({
+    let userData = await db.User.create({
       firstName,
       lastName,
       email,
@@ -27,7 +30,7 @@ const signUp = async (req, res, next) => {
     userData = userData.toJSON();
     delete userData.password;
 
-    res.status(201).send(userData);
+    res.status(201).json(userData);
   } catch (err) {
     next(err);
   }
@@ -37,7 +40,7 @@ const signIn = async (req, res, next) => {
   try {
     const { email, password } = req.body;
 
-    const user = await models.User.findOne({
+    const user = await db.User.findOne({
       where: { email },
       attributes: { include: ['password'] },
     });

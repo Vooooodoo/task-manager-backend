@@ -1,17 +1,21 @@
-require('dotenv').config();
+const dotenv = require('dotenv');
+
+const { parsed: envConfig } = dotenv.config();
 
 const config = {
-  nodeEnv: process.env.NODE_ENV,
-  port: process.env.PORT,
+  nodeEnv: envConfig.NODE_ENV,
+  port: envConfig.PORT,
+  isDev: envConfig.NODE_ENV === 'development',
+  corsOrigin: envConfig.CORS_ORIGIN,
   db: {
-    devUrl: process.env.DEV_DB_URL,
+    devUrl: envConfig.DEV_DB_URL,
   },
   jwt: {
-    secret: process.env.JWT_SECRET,
-    expiresIn: process.env.JWT_EXPIRES_IN,
+    secret: envConfig.JWT_SECRET,
+    expiresIn: envConfig.JWT_EXPIRES_IN,
   },
   passwordHash: {
-    salt: process.env.PASSWORD_HASH_SALT,
+    salt: envConfig.PASSWORD_HASH_SALT,
   },
 };
 

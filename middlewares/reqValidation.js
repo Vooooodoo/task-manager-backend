@@ -25,4 +25,8 @@ const validateUserInfo = celebrate({
   }),
 });
 
-module.exports = { validateNewUser, validateLogin, validateUserInfo };
+module.exports = {
+  validateNewUser,
+  validateLogin,
+  validateUserInfo,
+};
