@@ -30,7 +30,9 @@ const signUp = async (req, res, next) => {
     userData = userData.toJSON();
     delete userData.password;
 
-    res.status(201).json(userData);
+    const token = createToken(userData.id);
+
+    res.status(201).json({ token, userData });
   } catch (err) {
     next(err);
   }
@@ -54,8 +56,10 @@ const signIn = async (req, res, next) => {
     }
 
     const token = createToken(user.id);
+    const userData = user.toJSON();
+    delete userData.password;
 
-    res.send({ token });
+    res.json({ token, userData });
   } catch (err) {
     next(err);
   }
