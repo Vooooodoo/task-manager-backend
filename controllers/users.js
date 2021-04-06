@@ -3,35 +3,35 @@ const NotFoundError = require('../errors/NotFoundError');
 
 const userNotFoundErr = new NotFoundError('There is no user with this id.');
 
-module.exports.getUsers = async (req, res, next) => {
+const getUsers = async (req, res, next) => {
   try {
     const allUsers = await models.User.findAll({
       raw: true,
     });
 
-    res.send(allUsers);
+    res.json(allUsers);
   } catch (err) {
     next(err);
   }
 };
 
-module.exports.getUser = async (req, res, next) => {
+const getUser = async (req, res, next) => {
   try {
     const user = await models.User.findOne({
-      where: { id: req.params.id },
+      where: { id: req.user.id },
     });
 
     if (!user) {
       throw userNotFoundErr;
     }
 
-    res.send(user);
+    res.json(user);
   } catch (err) {
     next(err);
   }
 };
 
-module.exports.removeUser = async (req, res, next) => {
+const removeUser = async (req, res, next) => {
   try {
     const user = await models.User.findByPk(req.params.id);
 
@@ -41,13 +41,15 @@ module.exports.removeUser = async (req, res, next) => {
 
     await models.User.destroy({ where: { id: req.params.id } });
 
-    res.status(200).json({ message: 'The user was successfully deleted.' });
+    res.status(200).json({
+      message: 'The user was successfully deleted.',
+    });
   } catch (err) {
     next(err);
   }
 };
 
-module.exports.updateUserInfo = async (req, res, next) => {
+const updateUserInfo = async (req, res, next) => {
   try {
     const { name, email, dob } = req.body;
 
@@ -61,8 +63,14 @@ module.exports.updateUserInfo = async (req, res, next) => {
       throw userNotFoundErr;
     }
 
-    res.status(200).json({ message: 'The user was successfully updated.' });
+    res.status(200).json({
+      message: 'The user was successfully updated.',
+    });
   } catch (err) {
     next(err);
   }
+};
+
+module.exports = {
+  getUsers, getUser, removeUser, updateUserInfo,
 };
