@@ -57,15 +57,18 @@ const updateUserInfo = async (req, res, next) => {
       where: {
         id: req.user.id,
       },
+      returning: true,
+      plain: true,
     });
 
     if (!user) {
       throw userNotFoundErr;
     }
 
-    res.status(200).json({
-      message: 'The user was successfully updated.',
-    });
+    const userData = user[1].dataValues;
+    delete userData.password;
+
+    res.json(userData);
   } catch (err) {
     next(err);
   }

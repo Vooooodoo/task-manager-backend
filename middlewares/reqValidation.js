@@ -20,8 +20,7 @@ const validateUserInfo = celebrate({
   body: Joi.object().keys({
     firstName: Joi.string().required().min(2).max(40),
     lastName: Joi.string().required().min(2).max(40),
-    email: Joi.string().required().email(),
-    about: Joi.string().min(2).max(400),
+    about: Joi.string().allow('').min(2).max(400),
   }),
 });
 
