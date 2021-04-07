@@ -51,9 +51,9 @@ const removeUser = async (req, res, next) => {
 
 const updateUserInfo = async (req, res, next) => {
   try {
-    const { name, email, dob } = req.body;
+    const { firstName, lastName, about } = req.body;
 
-    const user = await models.User.update({ name, email, dob }, {
+    const user = await models.User.update({ firstName, lastName, about }, {
       where: {
         id: req.user.id,
       },
