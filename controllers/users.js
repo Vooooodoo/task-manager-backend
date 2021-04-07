@@ -55,7 +55,7 @@ const updateUserInfo = async (req, res, next) => {
 
     const user = await models.User.update({ name, email, dob }, {
       where: {
-        id: req.params.id,
+        id: req.user.id,
       },
     });
 
