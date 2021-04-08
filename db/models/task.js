@@ -12,8 +12,11 @@ module.exports = (sequelize, DataTypes) => {
      * This method is not a part of Sequelize lifecycle.
      * The `models/index` file will call this method automatically.
      */
-    static associate(models) {
+    static associate({ Column }) {
       // define association here
+      this.belongsTo(Column, {
+        foreignKey: 'columnId',
+      });
     }
   }
   Task.init(
