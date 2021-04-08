@@ -3,7 +3,7 @@ const NotFoundError = require('../errors/NotFoundError');
 
 const userNotFoundErr = new NotFoundError('There is no user with this id.');
 
-const getUsers = async (req, res, next) => {
+const getAllUsers = async (req, res, next) => {
   try {
     const allUsers = await models.User.findAll({
       raw: true,
@@ -31,6 +31,34 @@ const getUser = async (req, res, next) => {
   }
 };
 
+const updateUserInfo = async (req, res, next) => {
+  try {
+    const { firstName, lastName, about } = req.body;
+
+    const user = await models.User.update(
+      { firstName, lastName, about },
+      {
+        where: {
+          id: req.user.id,
+        },
+        returning: true,
+        plain: true,
+      },
+    );
+
+    if (!user) {
+      throw userNotFoundErr;
+    }
+
+    const userData = user[1].dataValues;
+    delete userData.password;
+
+    res.json(userData);
+  } catch (err) {
+    next(err);
+  }
+};
+
 const removeUser = async (req, res, next) => {
   try {
     const user = await models.User.findByPk(req.params.id);
@@ -49,31 +77,9 @@ const removeUser = async (req, res, next) => {
   }
 };
 
-const updateUserInfo = async (req, res, next) => {
-  try {
-    const { firstName, lastName, about } = req.body;
-
-    const user = await models.User.update({ firstName, lastName, about }, {
-      where: {
-        id: req.user.id,
-      },
-      returning: true,
-      plain: true,
-    });
-
-    if (!user) {
-      throw userNotFoundErr;
-    }
-
-    const userData = user[1].dataValues;
-    delete userData.password;
-
-    res.json(userData);
-  } catch (err) {
-    next(err);
-  }
-};
-
 module.exports = {
-  getUsers, getUser, removeUser, updateUserInfo,
+  getAllUsers,
+  getUser,
+  updateUserInfo,
+  removeUser,
 };

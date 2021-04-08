@@ -15,24 +15,6 @@ const getBoards = async (req, res, next) => {
   }
 };
 
-const removeBoard = async (req, res, next) => {
-  try {
-    const board = await models.Board.findByPk(req.params.id);
-
-    if (!board) {
-      throw boardNotFoundErr;
-    }
-
-    await models.Board.destroy({ where: { id: req.params.id } });
-
-    res.status(200).json({
-      message: 'The board was successfully deleted.',
-    });
-  } catch (err) {
-    next(err);
-  }
-};
-
 const updateBoardName = async (req, res, next) => {
   try {
     const { name } = req.body;
@@ -60,8 +42,26 @@ const updateBoardName = async (req, res, next) => {
   }
 };
 
+const removeBoard = async (req, res, next) => {
+  try {
+    const board = await models.Board.findByPk(req.params.id);
+
+    if (!board) {
+      throw boardNotFoundErr;
+    }
+
+    await models.Board.destroy({ where: { id: req.params.id } });
+
+    res.status(200).json({
+      message: 'The board was successfully deleted.',
+    });
+  } catch (err) {
+    next(err);
+  }
+};
+
 module.exports = {
   getBoards,
-  removeBoard,
   updateBoardName,
+  removeBoard,
 };

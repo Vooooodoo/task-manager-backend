@@ -24,8 +24,22 @@ const validateUserInfo = celebrate({
   }),
 });
 
+const validateBoardName = celebrate({
+  body: Joi.object().keys({
+    name: Joi.string().required().max(20),
+  }),
+});
+
+const validateTaskText = celebrate({
+  body: Joi.object().keys({
+    text: Joi.string().required().max(20),
+  }),
+});
+
 module.exports = {
   validateNewUser,
   validateLogin,
   validateUserInfo,
+  validateBoardName,
+  validateTaskText,
 };

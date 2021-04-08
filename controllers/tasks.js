@@ -15,24 +15,6 @@ const getTasks = async (req, res, next) => {
   }
 };
 
-const removeTask = async (req, res, next) => {
-  try {
-    const task = await models.Task.findByPk(req.params.id);
-
-    if (!task) {
-      throw taskNotFoundErr;
-    }
-
-    await models.Task.destroy({ where: { id: req.params.id } });
-
-    res.status(200).json({
-      message: 'The task was successfully deleted.',
-    });
-  } catch (err) {
-    next(err);
-  }
-};
-
 const updateTaskText = async (req, res, next) => {
   try {
     const { text } = req.body;
@@ -60,8 +42,26 @@ const updateTaskText = async (req, res, next) => {
   }
 };
 
+const removeTask = async (req, res, next) => {
+  try {
+    const task = await models.Task.findByPk(req.params.id);
+
+    if (!task) {
+      throw taskNotFoundErr;
+    }
+
+    await models.Task.destroy({ where: { id: req.params.id } });
+
+    res.status(200).json({
+      message: 'The task was successfully deleted.',
+    });
+  } catch (err) {
+    next(err);
+  }
+};
+
 module.exports = {
   getTasks,
-  removeTask,
   updateTaskText,
+  removeTask,
 };
