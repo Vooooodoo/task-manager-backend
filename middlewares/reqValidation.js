@@ -26,6 +26,7 @@ const validateUserInfo = celebrate({
 
 const validateBoardName = celebrate({
   body: Joi.object().keys({
+    id: Joi.number(),
     name: Joi.string().required().max(20),
   }),
 });

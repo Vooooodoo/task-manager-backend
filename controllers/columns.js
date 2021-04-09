@@ -6,9 +6,9 @@ const columnNotFoundErr = new NotFoundError('There is no column with this id.');
 
 const createColumn = async (req, res, next) => {
   try {
-    const { name } = req.body;
+    const { id, name } = req.body;
 
-    const board = await models.Board.findByPk(req.params.id);
+    const board = await models.Board.findByPk(id);
 
     if (!board) {
       throw boardNotFoundErr;
@@ -24,7 +24,7 @@ const createColumn = async (req, res, next) => {
 
 const getColumns = async (req, res, next) => {
   try {
-    const board = await models.Board.findByPk(req.params.id);
+    const board = await models.Board.findByPk(req.query.id);
 
     if (!board) {
       throw boardNotFoundErr;
