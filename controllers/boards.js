@@ -1,15 +1,20 @@
 const models = require('../db/models');
 const NotFoundError = require('../errors/NotFoundError');
 
+const userNotFoundErr = new NotFoundError('There is no user with this id.');
 const boardNotFoundErr = new NotFoundError('There is no board with this id.');
 
 const createBoard = async (req, res, next) => {
   try {
     const { name } = req.body;
 
-    const boardData = await models.Board.create({
-      name,
-    });
+    const user = await models.User.findByPk(req.user.id);
+
+    if (!user) {
+      throw userNotFoundErr;
+    }
+
+    const boardData = await user.createBoard({ name });
 
     res.status(201).json(boardData);
   } catch (err) {
@@ -19,12 +24,13 @@ const createBoard = async (req, res, next) => {
 
 const getBoards = async (req, res, next) => {
   try {
-    const allBoards = await models.Board.findAll({
-      where: {
-        userId: req.user.id,
-      },
-      raw: true,
-    });
+    const user = await models.User.findByPk(req.user.id);
+
+    if (!user) {
+      throw userNotFoundErr;
+    }
+
+    const allBoards = await user.getBoards();
 
     res.json(allBoards);
   } catch (err) {
