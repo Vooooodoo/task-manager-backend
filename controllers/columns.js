@@ -1,15 +1,20 @@
 const models = require('../db/models');
 const NotFoundError = require('../errors/NotFoundError');
 
+const boardNotFoundErr = new NotFoundError('There is no board with this id.');
 const columnNotFoundErr = new NotFoundError('There is no column with this id.');
 
 const createColumn = async (req, res, next) => {
   try {
     const { name } = req.body;
 
-    const columnData = await models.Column.create({
-      name,
-    });
+    const board = await models.Board.findByPk(req.params.id);
+
+    if (!board) {
+      throw boardNotFoundErr;
+    }
+
+    const columnData = await board.createColumn({ name });
 
     res.status(201).json(columnData);
   } catch (err) {
@@ -19,14 +24,15 @@ const createColumn = async (req, res, next) => {
 
 const getColumns = async (req, res, next) => {
   try {
-    const allColumns = await models.Column.findAll({
-      where: {
-        boardId: req.params.id,
-      },
-      raw: true,
-    });
+    const board = await models.Board.findByPk(req.params.id);
 
-    res.json(allColumns);
+    if (!board) {
+      throw boardNotFoundErr;
+    }
+
+    const columns = await board.getColumns();
+
+    res.json(columns);
   } catch (err) {
     next(err);
   }
@@ -71,7 +77,7 @@ const removeColumn = async (req, res, next) => {
 
     await models.Column.destroy({ where: { id } });
 
-    res.status(200).json({
+    res.json({
       message: 'The column was successfully deleted.',
     });
   } catch (err) {
