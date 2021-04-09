@@ -1,4 +1,4 @@
-const db = require('../db/models');
+const models = require('../db/models');
 const { generatePassHash, comparePasswords } = require('../utils/passwordHash');
 const { createToken } = require('../utils/token');
 const AuthError = require('../errors/AuthError');
@@ -14,14 +14,14 @@ const signUp = async (req, res, next) => {
       email,
       password,
     } = req.body;
-    const user = await db.User.findOne({ where: { email } });
+    const user = await models.User.findOne({ where: { email } });
 
     if (user) {
       throw new ValidationError('A user with this email already exists.');
     }
 
     const passwordHash = generatePassHash(password);
-    let userData = await db.User.create({
+    let userData = await models.User.create({
       firstName,
       lastName,
       email,
@@ -42,7 +42,7 @@ const signIn = async (req, res, next) => {
   try {
     const { email, password } = req.body;
 
-    const user = await db.User.findOne({
+    const user = await models.User.findOne({
       where: { email },
       attributes: { include: ['password'] },
     });

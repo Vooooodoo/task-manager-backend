@@ -3,6 +3,20 @@ const NotFoundError = require('../errors/NotFoundError');
 
 const taskNotFoundErr = new NotFoundError('There is no task with this id.');
 
+const createTask = async (req, res, next) => {
+  try {
+    const { text } = req.body;
+
+    const taskData = await models.Task.create({
+      text,
+    });
+
+    res.status(201).json(taskData);
+  } catch (err) {
+    next(err);
+  }
+};
+
 const getTasks = async (req, res, next) => {
   try {
     const allTasks = await models.Column.findAll({
@@ -61,6 +75,7 @@ const removeTask = async (req, res, next) => {
 };
 
 module.exports = {
+  createTask,
   getTasks,
   updateTaskText,
   removeTask,

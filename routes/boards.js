@@ -4,6 +4,7 @@ const { validateBoardName } = require('../middlewares/reqValidation');
 const checkIsForbiddenRout = require('../middlewares/isForbiddenRout');
 const controllers = require('../controllers/boards');
 
+router.post('/', validateBoardName, controllers.createBoard);
 router.get('/', controllers.getBoards);
 router.patch(
   '/:id',

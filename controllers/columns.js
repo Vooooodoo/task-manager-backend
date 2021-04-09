@@ -3,6 +3,20 @@ const NotFoundError = require('../errors/NotFoundError');
 
 const columnNotFoundErr = new NotFoundError('There is no column with this id.');
 
+const createColumn = async (req, res, next) => {
+  try {
+    const { name } = req.body;
+
+    const columnData = await models.Column.create({
+      name,
+    });
+
+    res.status(201).json(columnData);
+  } catch (err) {
+    next(err);
+  }
+};
+
 const getColumns = async (req, res, next) => {
   try {
     const allColumns = await models.Column.findAll({
@@ -61,6 +75,7 @@ const removeColumn = async (req, res, next) => {
 };
 
 module.exports = {
+  createColumn,
   getColumns,
   updateColumnName,
   removeColumn,

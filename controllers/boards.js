@@ -3,6 +3,20 @@ const NotFoundError = require('../errors/NotFoundError');
 
 const boardNotFoundErr = new NotFoundError('There is no board with this id.');
 
+const createBoard = async (req, res, next) => {
+  try {
+    const { name } = req.body;
+
+    const boardData = await models.Board.create({
+      name,
+    });
+
+    res.status(201).json(boardData);
+  } catch (err) {
+    next(err);
+  }
+};
+
 const getBoards = async (req, res, next) => {
   try {
     const allBoards = await models.Board.findAll({
@@ -61,6 +75,7 @@ const removeBoard = async (req, res, next) => {
 };
 
 module.exports = {
+  createBoard,
   getBoards,
   updateBoardName,
   removeBoard,
