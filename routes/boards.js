@@ -12,6 +12,6 @@ router.patch(
   validateBoardName,
   controllers.updateBoardName,
 );
-router.delete('/', checkIsForbiddenRout, controllers.removeBoard);
+router.delete('/', controllers.removeBoard);
 
 module.exports = router;

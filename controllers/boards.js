@@ -77,7 +77,7 @@ const removeBoard = async (req, res, next) => {
 
     await models.Board.destroy({ where: { id } });
 
-    res.status(200).json({
+    res.json({
       message: 'The board was successfully deleted.',
     });
   } catch (err) {
