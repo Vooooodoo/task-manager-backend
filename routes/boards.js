@@ -7,11 +7,11 @@ const controllers = require('../controllers/boards');
 router.post('/', validateBoardName, controllers.createBoard);
 router.get('/', controllers.getBoards);
 router.patch(
-  '/:id',
+  '/',
   checkIsForbiddenRout,
   validateBoardName,
   controllers.updateBoardName,
 );
-router.delete('/:id', checkIsForbiddenRout, controllers.removeBoard);
+router.delete('/', checkIsForbiddenRout, controllers.removeBoard);
 
 module.exports = router;

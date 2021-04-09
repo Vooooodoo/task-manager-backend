@@ -20,6 +20,9 @@ const createBoard = async (req, res, next) => {
 const getBoards = async (req, res, next) => {
   try {
     const allBoards = await models.Board.findAll({
+      where: {
+        userId: req.user.id,
+      },
       raw: true,
     });
 
@@ -31,13 +34,13 @@ const getBoards = async (req, res, next) => {
 
 const updateBoardName = async (req, res, next) => {
   try {
-    const { name } = req.body;
+    const { id, name } = req.body;
 
     const board = await models.Board.update(
       { name },
       {
         where: {
-          id: req.params.id,
+          id,
         },
         returning: true,
         plain: true,
@@ -58,13 +61,15 @@ const updateBoardName = async (req, res, next) => {
 
 const removeBoard = async (req, res, next) => {
   try {
-    const board = await models.Board.findByPk(req.params.id);
+    const { id } = req.body;
+
+    const board = await models.Board.findByPk(id);
 
     if (!board) {
       throw boardNotFoundErr;
     }
 
-    await models.Board.destroy({ where: { id: req.params.id } });
+    await models.Board.destroy({ where: { id } });
 
     res.status(200).json({
       message: 'The board was successfully deleted.',

@@ -20,6 +20,9 @@ const createColumn = async (req, res, next) => {
 const getColumns = async (req, res, next) => {
   try {
     const allColumns = await models.Column.findAll({
+      where: {
+        boardId: req.params.id,
+      },
       raw: true,
     });
 
@@ -31,13 +34,13 @@ const getColumns = async (req, res, next) => {
 
 const updateColumnName = async (req, res, next) => {
   try {
-    const { name } = req.body;
+    const { id, name } = req.body;
 
     const column = await models.Column.update(
       { name },
       {
         where: {
-          id: req.params.id,
+          id,
         },
         returning: true,
         plain: true,
@@ -58,13 +61,15 @@ const updateColumnName = async (req, res, next) => {
 
 const removeColumn = async (req, res, next) => {
   try {
-    const column = await models.Column.findByPk(req.params.id);
+    const { id } = req.body;
+
+    const column = await models.Column.findByPk(id);
 
     if (!column) {
       throw columnNotFoundErr;
     }
 
-    await models.Column.destroy({ where: { id: req.params.id } });
+    await models.Column.destroy({ where: { id } });
 
     res.status(200).json({
       message: 'The column was successfully deleted.',

@@ -7,11 +7,11 @@ const controllers = require('../controllers/tasks');
 router.post('/', validateTaskText, controllers.createTask);
 router.get('/', controllers.getTasks);
 router.patch(
-  '/:id',
+  '/',
   checkIsForbiddenRout,
   validateTaskText,
   controllers.updateTaskText,
 );
-router.delete('/:id', checkIsForbiddenRout, controllers.removeTask);
+router.delete('/', checkIsForbiddenRout, controllers.removeTask);
 
 module.exports = router;

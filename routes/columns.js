@@ -7,11 +7,11 @@ const controllers = require('../controllers/columns');
 router.post('/', validateBoardName, controllers.createColumn);
 router.get('/', controllers.getColumns);
 router.patch(
-  '/:id',
+  '/',
   checkIsForbiddenRout,
   validateBoardName,
   controllers.updateColumnName,
 );
-router.delete('/:id', checkIsForbiddenRout, controllers.removeColumn);
+router.delete('/', checkIsForbiddenRout, controllers.removeColumn);
 
 module.exports = router;
