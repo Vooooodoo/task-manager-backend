@@ -45,11 +45,7 @@ const updateBoardName = async (req, res, next) => {
     const board = await models.Board.update(
       { name },
       {
-        where: {
-          id,
-        },
-        returning: true,
-        plain: true,
+        where: { id },
       },
     );
 

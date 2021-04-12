@@ -45,11 +45,7 @@ const updateColumnName = async (req, res, next) => {
     const column = await models.Column.update(
       { name },
       {
-        where: {
-          id,
-        },
-        returning: true,
-        plain: true,
+        where: { id },
       },
     );
 

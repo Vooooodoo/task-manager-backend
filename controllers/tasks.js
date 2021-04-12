@@ -2,14 +2,19 @@ const models = require('../db/models');
 const NotFoundError = require('../errors/NotFoundError');
 
 const taskNotFoundErr = new NotFoundError('There is no task with this id.');
+const columnNotFoundErr = new NotFoundError('There is no column with this id.');
 
 const createTask = async (req, res, next) => {
   try {
-    const { text } = req.body;
+    const { id, text } = req.body;
 
-    const taskData = await models.Task.create({
-      text,
-    });
+    const column = await models.Column.findByPk(id);
+
+    if (!column) {
+      throw columnNotFoundErr;
+    }
+
+    const taskData = await column.createTask({ text });
 
     res.status(201).json(taskData);
   } catch (err) {
@@ -19,16 +24,15 @@ const createTask = async (req, res, next) => {
 
 const getTasks = async (req, res, next) => {
   try {
-    const { columnId } = req.body;
+    const column = await models.Column.findByPk(req.query.id);
 
-    const allTasks = await models.Column.findAll({
-      where: {
-        columnId,
-      },
-      raw: true,
-    });
+    if (!column) {
+      throw columnNotFoundErr;
+    }
 
-    res.json(allTasks);
+    const tasks = await column.getTasks();
+
+    res.json(tasks);
   } catch (err) {
     next(err);
   }
@@ -41,11 +45,7 @@ const updateTaskText = async (req, res, next) => {
     const task = await models.Task.update(
       { text },
       {
-        where: {
-          id,
-        },
-        returning: true,
-        plain: true,
+        where: { id },
       },
     );
 

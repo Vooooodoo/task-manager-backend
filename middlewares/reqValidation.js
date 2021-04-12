@@ -33,6 +33,7 @@ const validateBoardName = celebrate({
 
 const validateTaskText = celebrate({
   body: Joi.object().keys({
+    id: Joi.number(),
     text: Joi.string().required().max(20),
   }),
 });
