@@ -57,9 +57,9 @@ const updateBoardName = async (req, res, next) => {
       throw boardNotFoundErr;
     }
 
-    const boardData = board[1].dataValues;
-
-    res.json(boardData);
+    res.json({
+      message: 'The board was successfully updated.',
+    });
   } catch (err) {
     next(err);
   }

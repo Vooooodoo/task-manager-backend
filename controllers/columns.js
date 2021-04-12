@@ -57,9 +57,9 @@ const updateColumnName = async (req, res, next) => {
       throw columnNotFoundErr;
     }
 
-    const columnData = column[1].dataValues;
-
-    res.json(columnData);
+    res.json({
+      message: 'The column was successfully updated.',
+    });
   } catch (err) {
     next(err);
   }

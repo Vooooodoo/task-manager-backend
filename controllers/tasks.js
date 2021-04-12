@@ -53,9 +53,9 @@ const updateTaskText = async (req, res, next) => {
       throw taskNotFoundErr;
     }
 
-    const taskData = task[1].dataValues;
-
-    res.json(taskData);
+    res.json({
+      message: 'The task was successfully updated.',
+    });
   } catch (err) {
     next(err);
   }
