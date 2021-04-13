@@ -30,7 +30,7 @@ const getUserBoards = async (req, res, next) => {
       throw userNotFoundErr;
     }
 
-    const allBoards = await user.getUserBoards();
+    const allBoards = await user.getBoards();
 
     res.json(allBoards);
   } catch (err) {
@@ -40,7 +40,8 @@ const getUserBoards = async (req, res, next) => {
 
 const getBoard = async (req, res, next) => {
   try {
-    const board = await models.Board.findByPk(req.query.id);
+    console.log(req);
+    const board = await models.Board.findByPk(req.params.id);
 
     if (!board) {
       throw boardNotFoundErr;

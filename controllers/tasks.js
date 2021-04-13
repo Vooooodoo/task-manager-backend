@@ -30,7 +30,7 @@ const getColumnTasks = async (req, res, next) => {
       throw columnNotFoundErr;
     }
 
-    const tasks = await column.getColumnTasks();
+    const tasks = await column.getTasks();
 
     res.json(tasks);
   } catch (err) {

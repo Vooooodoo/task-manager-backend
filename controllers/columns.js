@@ -30,7 +30,12 @@ const getBoardColumns = async (req, res, next) => {
       throw boardNotFoundErr;
     }
 
-    const columns = await board.getBoardColumns();
+    const columns = await board.getColumns({
+      include: [{
+        model: models.Task,
+        as: 'Tasks',
+      }],
+    });
 
     res.json(columns);
   } catch (err) {
