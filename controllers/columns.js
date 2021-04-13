@@ -22,7 +22,7 @@ const createColumn = async (req, res, next) => {
   }
 };
 
-const getColumns = async (req, res, next) => {
+const getBoardColumns = async (req, res, next) => {
   try {
     const board = await models.Board.findByPk(req.query.id);
 
@@ -30,7 +30,7 @@ const getColumns = async (req, res, next) => {
       throw boardNotFoundErr;
     }
 
-    const columns = await board.getColumns();
+    const columns = await board.getBoardColumns();
 
     res.json(columns);
   } catch (err) {
@@ -83,7 +83,7 @@ const removeColumn = async (req, res, next) => {
 
 module.exports = {
   createColumn,
-  getColumns,
+  getBoardColumns,
   updateColumnName,
   removeColumn,
 };

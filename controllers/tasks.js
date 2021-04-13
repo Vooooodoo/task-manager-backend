@@ -22,7 +22,7 @@ const createTask = async (req, res, next) => {
   }
 };
 
-const getTasks = async (req, res, next) => {
+const getColumnTasks = async (req, res, next) => {
   try {
     const column = await models.Column.findByPk(req.query.id);
 
@@ -30,7 +30,7 @@ const getTasks = async (req, res, next) => {
       throw columnNotFoundErr;
     }
 
-    const tasks = await column.getTasks();
+    const tasks = await column.getColumnTasks();
 
     res.json(tasks);
   } catch (err) {
@@ -83,7 +83,7 @@ const removeTask = async (req, res, next) => {
 
 module.exports = {
   createTask,
-  getTasks,
+  getColumnTasks,
   updateTaskText,
   removeTask,
 };

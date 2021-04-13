@@ -4,7 +4,7 @@ const { validateBoardName } = require('../middlewares/reqValidation');
 const controllers = require('../controllers/boards');
 
 router.post('/', validateBoardName, controllers.createBoard);
-router.get('/', controllers.getBoards);
+router.get('/', controllers.getUserBoards);
 router.patch(
   '/',
   validateBoardName,

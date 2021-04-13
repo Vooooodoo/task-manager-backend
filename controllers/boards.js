@@ -22,7 +22,7 @@ const createBoard = async (req, res, next) => {
   }
 };
 
-const getBoards = async (req, res, next) => {
+const getUserBoards = async (req, res, next) => {
   try {
     const user = await models.User.findByPk(req.user.id);
 
@@ -30,9 +30,23 @@ const getBoards = async (req, res, next) => {
       throw userNotFoundErr;
     }
 
-    const allBoards = await user.getBoards();
+    const allBoards = await user.getUserBoards();
 
     res.json(allBoards);
+  } catch (err) {
+    next(err);
+  }
+};
+
+const getBoard = async (req, res, next) => {
+  try {
+    const board = await models.Board.findByPk(req.query.id);
+
+    if (!board) {
+      throw boardNotFoundErr;
+    }
+
+    res.json(board);
   } catch (err) {
     next(err);
   }
@@ -83,7 +97,8 @@ const removeBoard = async (req, res, next) => {
 
 module.exports = {
   createBoard,
-  getBoards,
+  getUserBoards,
+  getBoard,
   updateBoardName,
   removeBoard,
 };
