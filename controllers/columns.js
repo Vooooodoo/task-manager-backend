@@ -39,6 +39,7 @@ const getBoardColumns = async (req, res, next) => {
       }],
       order: [
         ['id', 'ASC'],
+        ['Tasks', 'id', 'ASC'],
       ],
     });
 
