@@ -4,7 +4,6 @@ const { validateTaskText } = require('../middlewares/reqValidation');
 const controllers = require('../controllers/tasks');
 
 router.post('/', validateTaskText, controllers.createTask);
-router.get('/', controllers.getColumnTasks);
 router.patch(
   '/',
   validateTaskText,

@@ -14,7 +14,9 @@ const createColumn = async (req, res, next) => {
       throw boardNotFoundErr;
     }
 
-    const columnData = await board.createColumn({ name });
+    const columnData = await board.createColumn({
+      name,
+    });
 
     res.status(201).json(columnData);
   } catch (err) {

@@ -22,22 +22,6 @@ const createTask = async (req, res, next) => {
   }
 };
 
-const getColumnTasks = async (req, res, next) => {
-  try {
-    const column = await models.Column.findByPk(req.query.id);
-
-    if (!column) {
-      throw columnNotFoundErr;
-    }
-
-    const tasks = await column.getTasks();
-
-    res.json(tasks);
-  } catch (err) {
-    next(err);
-  }
-};
-
 const updateTaskText = async (req, res, next) => {
   try {
     const { id, text } = req.body;
@@ -83,7 +67,6 @@ const removeTask = async (req, res, next) => {
 
 module.exports = {
   createTask,
-  getColumnTasks,
   updateTaskText,
   removeTask,
 };
