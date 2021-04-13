@@ -37,6 +37,9 @@ const getBoardColumns = async (req, res, next) => {
         model: models.Task,
         as: 'Tasks',
       }],
+      order: [
+        ['id', 'ASC'],
+      ],
     });
 
     res.json(columns);
