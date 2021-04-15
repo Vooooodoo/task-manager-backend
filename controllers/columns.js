@@ -72,6 +72,29 @@ const updateColumnName = async (req, res, next) => {
   }
 };
 
+const updateColumnTasksPos = async (req, res, next) => {
+  try {
+    const { id, tasksPos } = req.body;
+
+    const column = await models.Column.update(
+      { tasksPos },
+      {
+        where: { id },
+      },
+    );
+
+    if (!column) {
+      throw columnNotFoundErr;
+    }
+
+    res.json({
+      message: 'The column was successfully updated.',
+    });
+  } catch (err) {
+    next(err);
+  }
+};
+
 const removeColumn = async (req, res, next) => {
   try {
     const { id } = req.body;
@@ -96,5 +119,6 @@ module.exports = {
   createColumn,
   getBoardColumns,
   updateColumnName,
+  updateColumnTasksPos,
   removeColumn,
 };

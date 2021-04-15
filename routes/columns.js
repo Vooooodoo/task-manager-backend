@@ -10,6 +10,7 @@ router.patch(
   validateBoardName,
   controllers.updateColumnName,
 );
+router.patch('/tasks-pos', controllers.updateColumnTasksPos);
 router.delete('/', controllers.removeColumn);
 
 module.exports = router;
