@@ -24,7 +24,6 @@ module.exports = {
         },
       },
       tasksPos: {
-        allowNull: false,
         type: Sequelize.ARRAY(Sequelize.INTEGER),
       },
       createdAt: {

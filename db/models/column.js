@@ -33,7 +33,6 @@ module.exports = (sequelize, DataTypes) => {
         },
       },
       tasksPos: {
-        allowNull: false,
         type: DataTypes.ARRAY(DataTypes.INTEGER),
       },
     },
