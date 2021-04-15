@@ -23,6 +23,10 @@ module.exports = {
           len: [1, 20],
         },
       },
+      tasksPos: {
+        allowNull: false,
+        type: Sequelize.ARRAY(Sequelize.INTEGER),
+      },
       createdAt: {
         allowNull: false,
         type: Sequelize.DATE,
