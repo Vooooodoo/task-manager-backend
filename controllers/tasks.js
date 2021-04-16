@@ -45,6 +45,29 @@ const updateTaskText = async (req, res, next) => {
   }
 };
 
+const updateTaskColumnId = async (req, res, next) => {
+  try {
+    const { id, columnId } = req.body;
+
+    const task = await models.Task.update(
+      { columnId },
+      {
+        where: { id },
+      },
+    );
+
+    if (!task) {
+      throw taskNotFoundErr;
+    }
+
+    res.json({
+      message: 'The task was successfully updated.',
+    });
+  } catch (err) {
+    next(err);
+  }
+};
+
 const removeTask = async (req, res, next) => {
   try {
     const { id } = req.body;
@@ -68,5 +91,6 @@ const removeTask = async (req, res, next) => {
 module.exports = {
   createTask,
   updateTaskText,
+  updateTaskColumnId,
   removeTask,
 };

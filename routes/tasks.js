@@ -9,6 +9,7 @@ router.patch(
   validateTaskText,
   controllers.updateTaskText,
 );
+router.patch('/column-id', controllers.updateTaskColumnId);
 router.delete('/', controllers.removeTask);
 
 module.exports = router;
