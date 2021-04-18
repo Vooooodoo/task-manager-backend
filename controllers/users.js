@@ -61,14 +61,14 @@ const updateUserInfo = async (req, res, next) => {
 
 const updateUserAvatar = async (req, res, next) => {
   try {
-    const { imgUrl } = req.body;
+    const { avatar } = req.body;
 
-    // тут окажется объект с инфой о файле, который прилетел с фронта
+    //! тут окажется объект с инфой о файле, который прилетел с фронта
     // const fileData = req.file;
 
     const user = await models.User.update(
       {
-        avatar: imgUrl,
+        avatar,
       },
       {
         where: {
@@ -83,6 +83,7 @@ const updateUserAvatar = async (req, res, next) => {
       throw userNotFoundErr;
     }
 
+    //! check variant not return userData and update on frontend side
     const userData = user[1].dataValues;
     delete userData.password;
 

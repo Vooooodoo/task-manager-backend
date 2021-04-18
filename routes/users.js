@@ -7,7 +7,7 @@ const { storageConfig, fileFilter } = require('../middlewares/avatar');
 
 const controllers = require('../controllers/users');
 
-//! попробовать перенести в App.js
+//! try to replace to the App.js
 router.use(
   multer({ storage: storageConfig, filter: fileFilter }).single('filedata'),
 );
@@ -22,7 +22,8 @@ router.patch(
   validateUserInfo,
   controllers.updateUserInfo,
 );
-router.patch('/avatar', controllers.updateUserAvatar);
+//! validate user avatar by celebrate middleware
+router.patch('/me/avatar', controllers.updateUserAvatar);
 router.delete('/:id', checkIsForbiddenRout, controllers.removeUser);
 
 module.exports = router;
