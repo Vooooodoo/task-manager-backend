@@ -59,6 +59,38 @@ const updateUserInfo = async (req, res, next) => {
   }
 };
 
+const updateUserAvatar = async (req, res, next) => {
+  try {
+    const { imgUrl } = req.body;
+
+    //! const fileData = req.file;
+
+    const user = await models.User.update(
+      {
+        avatar: imgUrl,
+      },
+      {
+        where: {
+          id: req.user.id,
+        },
+        returning: true,
+        plain: true,
+      },
+    );
+
+    if (!user) {
+      throw userNotFoundErr;
+    }
+
+    const userData = user[1].dataValues;
+    delete userData.password;
+
+    res.json(userData);
+  } catch (err) {
+    next(err);
+  }
+};
+
 const removeUser = async (req, res, next) => {
   try {
     const user = await models.User.findByPk(req.params.id);
@@ -81,5 +113,6 @@ module.exports = {
   getAllUsers,
   getUser,
   updateUserInfo,
+  updateUserAvatar,
   removeUser,
 };
