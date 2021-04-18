@@ -63,7 +63,8 @@ const updateUserAvatar = async (req, res, next) => {
   try {
     const { imgUrl } = req.body;
 
-    //! const fileData = req.file;
+    // тут окажется объект с инфой о файле, который прилетел с фронта
+    // const fileData = req.file;
 
     const user = await models.User.update(
       {

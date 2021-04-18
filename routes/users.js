@@ -7,6 +7,7 @@ const { storageConfig, fileFilter } = require('../middlewares/avatar');
 
 const controllers = require('../controllers/users');
 
+//! попробовать перенести в App.js
 router.use(
   multer({ storage: storageConfig, filter: fileFilter }).single('filedata'),
 );
