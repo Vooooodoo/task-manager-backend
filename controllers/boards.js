@@ -79,6 +79,29 @@ const updateBoardName = async (req, res, next) => {
   }
 };
 
+const updateBoardColumnsPos = async (req, res, next) => {
+  try {
+    const { id, columnsPos } = req.body;
+
+    const board = await models.Board.update(
+      { columnsPos },
+      {
+        where: { id },
+      },
+    );
+
+    if (!board) {
+      throw boardNotFoundErr;
+    }
+
+    res.json({
+      message: 'The board was successfully updated.',
+    });
+  } catch (err) {
+    next(err);
+  }
+};
+
 const removeBoard = async (req, res, next) => {
   try {
     const { id } = req.body;
@@ -104,5 +127,6 @@ module.exports = {
   getUserBoards,
   getBoard,
   updateBoardName,
+  updateBoardColumnsPos,
   removeBoard,
 };

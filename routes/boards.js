@@ -11,6 +11,7 @@ router.patch(
   validateBoardName,
   controllers.updateBoardName,
 );
+router.patch('/columns-pos', controllers.updateBoardColumnsPos);
 router.delete('/', controllers.removeBoard);
 
 module.exports = router;
