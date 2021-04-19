@@ -23,6 +23,9 @@ module.exports = {
           len: [1, 20],
         },
       },
+      columnsPos: {
+        type: Sequelize.ARRAY(Sequelize.INTEGER),
+      },
       createdAt: {
         allowNull: false,
         type: Sequelize.DATE,

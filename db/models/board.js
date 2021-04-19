@@ -33,6 +33,9 @@ module.exports = (sequelize, DataTypes) => {
           len: [1, 20],
         },
       },
+      columnsPos: {
+        type: DataTypes.ARRAY(DataTypes.INTEGER),
+      },
     },
     {
       sequelize,
