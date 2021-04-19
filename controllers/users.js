@@ -7,6 +7,13 @@ const getAllUsers = async (req, res, next) => {
   try {
     const allUsers = await models.User.findAll({
       raw: true,
+      attributes: [
+        'id',
+        'roleId',
+        'firstName',
+        'lastName',
+        'createdAt',
+      ],
     });
 
     res.json(allUsers);
