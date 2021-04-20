@@ -6,8 +6,9 @@ const {
   validateUserRoleId,
   validateUserId,
 } = require('../middlewares/reqValidation');
-const controllers = require('../controllers/users');
 const { storageConfig, fileFilter } = require('../middlewares/avatar');
+
+const controllers = require('../controllers/users');
 
 const multerMiddleware = multer({
   storage: storageConfig,
