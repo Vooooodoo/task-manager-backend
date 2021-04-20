@@ -125,6 +125,7 @@ const updateUserRoleId = async (req, res, next) => {
 const removeUser = async (req, res, next) => {
   try {
     const { id } = req.body;
+    console.log(req.body);
 
     const user = await models.User.findByPk(id);
 

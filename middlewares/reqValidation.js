@@ -39,14 +39,14 @@ const validateUserRoleId = celebrate({
 
 const validateBoardName = celebrate({
   body: Joi.object().keys({
-    id: Joi.number(),
+    id: Joi.number().required(),
     name: Joi.string().required().max(20),
   }),
 });
 
 const validateTaskText = celebrate({
   body: Joi.object().keys({
-    id: Joi.number(),
+    id: Joi.number().required(),
     text: Joi.string().required().max(20),
   }),
 });
