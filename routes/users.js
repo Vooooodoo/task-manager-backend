@@ -1,8 +1,11 @@
 const router = require('express').Router();
 const multer = require('multer');
 
-const { validateUserInfo } = require('../middlewares/reqValidation');
-const checkIsForbiddenRout = require('../middlewares/isForbiddenRout');
+const {
+  validateUserInfo,
+  validateUserRoleId,
+  validateUserId,
+} = require('../middlewares/reqValidation');
 const { storageConfig, fileFilter } = require('../middlewares/avatar');
 
 const controllers = require('../controllers/users');
@@ -13,17 +16,12 @@ router.use(
 );
 
 router.get('/', controllers.getAllUsers);
+
 router.get('/me', controllers.getUser);
-router.get('/:id', checkIsForbiddenRout, controllers.getUser);
 router.patch('/me', validateUserInfo, controllers.updateUserInfo);
-router.patch(
-  '/:id',
-  checkIsForbiddenRout,
-  validateUserInfo,
-  controllers.updateUserInfo,
-);
-//! validate user avatar by celebrate middleware
 router.patch('/me/avatar', controllers.updateUserAvatar);
-router.delete('/:id', checkIsForbiddenRout, controllers.removeUser);
+
+router.patch('/', validateUserRoleId, controllers.updateUserRoleId);
+router.delete('/', validateUserId, controllers.removeUser);
 
 module.exports = router;

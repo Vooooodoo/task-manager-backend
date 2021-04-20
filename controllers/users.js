@@ -7,13 +7,7 @@ const getAllUsers = async (req, res, next) => {
   try {
     const allUsers = await models.User.findAll({
       raw: true,
-      attributes: [
-        'id',
-        'roleId',
-        'firstName',
-        'lastName',
-        'createdAt',
-      ],
+      attributes: ['id', 'roleId', 'firstName', 'lastName', 'createdAt'],
     });
 
     res.json(allUsers);
@@ -100,15 +94,45 @@ const updateUserAvatar = async (req, res, next) => {
   }
 };
 
-const removeUser = async (req, res, next) => {
+const updateUserRoleId = async (req, res, next) => {
   try {
-    const user = await models.User.findByPk(req.params.id);
+    const { id, roleId } = req.body;
+
+    const user = await models.User.update(
+      { roleId },
+      {
+        where: {
+          id,
+        },
+        returning: true,
+        plain: true,
+      },
+    );
 
     if (!user) {
       throw userNotFoundErr;
     }
 
-    await models.User.destroy({ where: { id: req.params.id } });
+    const userData = user[1].dataValues;
+    delete userData.password;
+
+    res.json(userData);
+  } catch (err) {
+    next(err);
+  }
+};
+
+const removeUser = async (req, res, next) => {
+  try {
+    const { id } = req.body;
+
+    const user = await models.User.findByPk(id);
+
+    if (!user) {
+      throw userNotFoundErr;
+    }
+
+    await models.User.destroy({ where: { id } });
 
     res.status(200).json({
       message: 'The user was successfully deleted.',
@@ -123,5 +147,6 @@ module.exports = {
   getUser,
   updateUserInfo,
   updateUserAvatar,
+  updateUserRoleId,
   removeUser,
 };
