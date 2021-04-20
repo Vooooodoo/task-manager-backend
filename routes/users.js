@@ -16,12 +16,12 @@ router.use(
 );
 
 router.get('/', controllers.getAllUsers);
-
 router.get('/me', controllers.getUser);
+
 router.patch('/me', validateUserInfo, controllers.updateUserInfo);
 router.patch('/me/avatar', controllers.updateUserAvatar);
-
 router.patch('/', validateUserRoleId, controllers.updateUserRoleId);
+
 router.delete('/', validateUserId, controllers.removeUser);
 
 module.exports = router;

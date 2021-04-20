@@ -1,4 +1,5 @@
 const models = require('../db/models');
+
 const NotFoundError = require('../errors/NotFoundError');
 
 const userNotFoundErr = new NotFoundError('There is no user with this id.');
@@ -64,9 +65,6 @@ const updateUserAvatar = async (req, res, next) => {
   try {
     const { avatar } = req.body;
 
-    //! тут окажется объект с инфой о файле, который прилетел с фронта
-    // const fileData = req.file;
-
     const user = await models.User.update(
       {
         avatar,
@@ -84,7 +82,6 @@ const updateUserAvatar = async (req, res, next) => {
       throw userNotFoundErr;
     }
 
-    //! check variant not return userData and update on frontend side
     const userData = user[1].dataValues;
     delete userData.password;
 
@@ -125,7 +122,6 @@ const updateUserRoleId = async (req, res, next) => {
 const removeUser = async (req, res, next) => {
   try {
     const { id } = req.body;
-    console.log(req.body);
 
     const user = await models.User.findByPk(id);
 

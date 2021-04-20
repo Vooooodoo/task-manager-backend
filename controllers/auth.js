@@ -1,6 +1,8 @@
 const models = require('../db/models');
+
 const { generatePassHash, comparePasswords } = require('../utils/passwordHash');
 const { createToken } = require('../utils/token');
+
 const AuthError = require('../errors/AuthError');
 const ValidationError = require('../errors/ValidationError');
 

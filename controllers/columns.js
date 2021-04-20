@@ -1,4 +1,5 @@
 const models = require('../db/models');
+
 const NotFoundError = require('../errors/NotFoundError');
 
 const boardNotFoundErr = new NotFoundError('There is no board with this id.');

@@ -1,7 +1,7 @@
 const express = require('express');
 const config = require('./config');
 
-//! если перенести всё в app почему то не слушает сервер, и ошибки не выдаёт
+//! if replace to the App don't listen the server & no errors
 const app = express();
 
 app.listen(config.port, () => console.log(`App listening on port ${config.port}`));
