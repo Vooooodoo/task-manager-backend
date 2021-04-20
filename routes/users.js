@@ -6,20 +6,19 @@ const {
   validateUserRoleId,
   validateUserId,
 } = require('../middlewares/reqValidation');
+const controllers = require('../controllers/users');
 const { storageConfig, fileFilter } = require('../middlewares/avatar');
 
-const controllers = require('../controllers/users');
-
-//! try to replace to the App.js
-router.use(
-  multer({ storage: storageConfig, filter: fileFilter }).single('filedata'),
-);
+const multerMiddleware = multer({
+  storage: storageConfig,
+  filter: fileFilter,
+}).single('file');
 
 router.get('/', controllers.getAllUsers);
 router.get('/me', controllers.getUser);
 
 router.patch('/me', validateUserInfo, controllers.updateUserInfo);
-router.patch('/me/avatar', controllers.updateUserAvatar);
+router.patch('/me/avatar', multerMiddleware, controllers.updateUserAvatar);
 router.patch('/', validateUserRoleId, controllers.updateUserRoleId);
 
 router.delete('/', validateUserId, controllers.removeUser);

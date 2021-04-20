@@ -64,6 +64,7 @@ const updateUserInfo = async (req, res, next) => {
 const updateUserAvatar = async (req, res, next) => {
   try {
     const { avatar } = req.body;
+    console.log(avatar);
 
     const user = await models.User.update(
       {
