@@ -21,4 +21,9 @@ const fileFilter = (req, file, cb) => {
   }
 };
 
-module.exports = { storageConfig, fileFilter };
+const multerMiddleware = multer({
+  storage: storageConfig,
+  filter: fileFilter,
+}).single('file');
+
+module.exports = { multerMiddleware };
