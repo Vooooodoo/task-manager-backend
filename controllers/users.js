@@ -52,7 +52,7 @@ const updateUserInfo = async (req, res, next) => {
       throw userNotFoundErr;
     }
 
-    const userData = user[1].dataValues;
+    const userData = user[1].toJSON();
     delete userData.password;
 
     res.json(userData);
@@ -83,7 +83,7 @@ const updateUserAvatar = async (req, res) => {
     //   throw userNotFoundErr;
     // }
 
-    // const userData = user[1].dataValues;
+    // const userData = user[1].toJSON();
     // delete userData.password;
 
     // res.json(userData);
@@ -112,7 +112,7 @@ const updateUserRoleId = async (req, res, next) => {
       throw userNotFoundErr;
     }
 
-    const userData = user[1].dataValues;
+    const userData = user[1].toJSON();
     delete userData.password;
 
     res.json(userData);
