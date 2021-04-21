@@ -25,12 +25,12 @@ const createTask = async (req, res, next) => {
 
 const updateTaskText = async (req, res, next) => {
   try {
-    const { id, text } = req.body;
+    const { text } = req.body;
 
     const task = await models.Task.update(
       { text },
       {
-        where: { id },
+        where: { id: req.params.id },
       },
     );
 
@@ -48,12 +48,12 @@ const updateTaskText = async (req, res, next) => {
 
 const updateTaskColumnId = async (req, res, next) => {
   try {
-    const { id, columnId } = req.body;
+    const { columnId } = req.body;
 
     const task = await models.Task.update(
       { columnId },
       {
-        where: { id },
+        where: { id: req.params.id },
       },
     );
 
@@ -71,15 +71,13 @@ const updateTaskColumnId = async (req, res, next) => {
 
 const removeTask = async (req, res, next) => {
   try {
-    const { id } = req.body;
-
-    const task = await models.Task.findByPk(id);
+    const task = await models.Task.findByPk(req.params.id);
 
     if (!task) {
       throw taskNotFoundErr;
     }
 
-    await models.Task.destroy({ where: { id } });
+    await models.Task.destroy({ where: { id: req.params.id } });
 
     res.status(200).json({
       message: 'The task was successfully deleted.',
