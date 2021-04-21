@@ -4,6 +4,8 @@ const config = require('./config');
 //! if replace to the App don't listen the server & no errors
 const app = express();
 
+app.use(express.static(__dirname));
+
 app.listen(config.port, () => console.log(`App listening on port ${config.port}`));
 
 module.exports = app;

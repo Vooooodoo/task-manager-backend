@@ -61,34 +61,35 @@ const updateUserInfo = async (req, res, next) => {
   }
 };
 
-const updateUserAvatar = async (req, res, next) => {
+const updateUserAvatar = async (req, res) => {
   try {
-    const { avatar } = req.body;
+    // const { avatar } = req.body;
     console.log(req.file);
 
-    const user = await models.User.update(
-      {
-        avatar,
-      },
-      {
-        where: {
-          id: req.user.id,
-        },
-        returning: true,
-        plain: true,
-      },
-    );
+    // const user = await models.User.update(
+    //   {
+    //     avatar: req.file,
+    //   },
+    //   {
+    //     where: {
+    //       id: req.user.id,
+    //     },
+    //     returning: true,
+    //     plain: true,
+    //   },
+    // );
 
-    if (!user) {
-      throw userNotFoundErr;
-    }
+    // if (!user) {
+    //   throw userNotFoundErr;
+    // }
 
-    const userData = user[1].dataValues;
-    delete userData.password;
+    // const userData = user[1].dataValues;
+    // delete userData.password;
 
-    res.json(userData);
+    // res.json(userData);
   } catch (err) {
-    next(err);
+    res.json(err);
+    // next(err);
   }
 };
 

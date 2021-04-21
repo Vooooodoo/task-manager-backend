@@ -13,14 +13,19 @@ const controllers = require('../controllers/users');
 const multerMiddleware = multer({
   storage: storageConfig,
   filter: fileFilter,
-}).single('file');
+});
 
 router.get('/', controllers.getAllUsers);
 router.get('/me', controllers.getUser);
 
 router.patch('/me', validateUserInfo, controllers.updateUserInfo);
-router.patch('/me/avatar', multerMiddleware, controllers.updateUserAvatar);
 router.patch('/', validateUserRoleId, controllers.updateUserRoleId);
+
+router.post(
+  '/me/avatar',
+  multerMiddleware.single('file'),
+  controllers.updateUserAvatar,
+);
 
 router.delete('/', validateUserId, controllers.removeUser);
 
