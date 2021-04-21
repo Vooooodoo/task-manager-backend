@@ -15,6 +15,6 @@ router.patch(
 );
 router.patch('/:id/columns-order', controllers.updateBoardColumnsOrder);
 
-router.delete('/', controllers.removeBoard);
+router.delete('/:id', controllers.removeBoard);
 
 module.exports = router;

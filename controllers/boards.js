@@ -105,15 +105,14 @@ const updateBoardColumnsOrder = async (req, res, next) => {
 
 const removeBoard = async (req, res, next) => {
   try {
-    const { id } = req.body;
-
-    const board = await models.Board.findByPk(id);
+    //! extra search for board, may only destroy search
+    const board = await models.Board.findByPk(req.params.id);
 
     if (!board) {
       throw boardNotFoundErr;
     }
 
-    await models.Board.destroy({ where: { id } });
+    await models.Board.destroy({ where: { id: req.params.id } });
 
     res.json({
       message: 'The board was successfully deleted.',
