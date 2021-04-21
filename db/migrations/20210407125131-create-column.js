@@ -27,7 +27,7 @@ module.exports = {
           len: [1, 20],
         },
       },
-      tasksPos: {
+      tasksOrder: {
         type: Sequelize.ARRAY(Sequelize.INTEGER),
       },
       createdAt: {

@@ -32,7 +32,7 @@ module.exports = (sequelize, DataTypes) => {
           len: [1, 20],
         },
       },
-      tasksPos: {
+      tasksOrder: {
         type: DataTypes.ARRAY(DataTypes.INTEGER),
       },
     },

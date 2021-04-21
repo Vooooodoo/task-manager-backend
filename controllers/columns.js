@@ -73,12 +73,12 @@ const updateColumnName = async (req, res, next) => {
   }
 };
 
-const updateColumnTasksPos = async (req, res, next) => {
+const updateColumnTasksOrder = async (req, res, next) => {
   try {
-    const { id, tasksPos } = req.body;
+    const { id, tasksOrder } = req.body;
 
     const column = await models.Column.update(
-      { tasksPos },
+      { tasksOrder },
       {
         where: { id },
       },
@@ -120,6 +120,6 @@ module.exports = {
   createColumn,
   getBoardColumns,
   updateColumnName,
-  updateColumnTasksPos,
+  updateColumnTasksOrder,
   removeColumn,
 };

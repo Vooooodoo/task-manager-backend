@@ -13,7 +13,7 @@ router.patch(
   validateBoardName,
   controllers.updateBoardName,
 );
-router.patch('/columns-pos', controllers.updateBoardColumnsPos);
+router.patch('/:id/columns-order', controllers.updateBoardColumnsOrder);
 
 router.delete('/', controllers.removeBoard);
 

@@ -12,7 +12,7 @@ router.patch(
   validateBoardName,
   controllers.updateColumnName,
 );
-router.patch('/tasks-pos', controllers.updateColumnTasksPos);
+router.patch('/tasks-pos', controllers.updateColumnTasksOrder);
 
 router.delete('/', controllers.removeColumn);
 

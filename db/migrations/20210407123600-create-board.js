@@ -27,7 +27,7 @@ module.exports = {
           len: [1, 20],
         },
       },
-      columnsPos: {
+      columnsOrder: {
         type: Sequelize.ARRAY(Sequelize.INTEGER),
       },
       createdAt: {

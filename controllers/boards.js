@@ -60,7 +60,6 @@ const getBoard = async (req, res, next) => {
 const updateBoardName = async (req, res, next) => {
   try {
     const { name } = req.body;
-    console.log(req.params.id);
 
     const board = await models.Board.update(
       { name },
@@ -81,14 +80,14 @@ const updateBoardName = async (req, res, next) => {
   }
 };
 
-const updateBoardColumnsPos = async (req, res, next) => {
+const updateBoardColumnsOrder = async (req, res, next) => {
   try {
-    const { id, columnsPos } = req.body;
+    const { columnsOrder } = req.body;
 
     const board = await models.Board.update(
-      { columnsPos },
+      { columnsOrder },
       {
-        where: { id },
+        where: { id: req.params.id },
       },
     );
 
@@ -129,6 +128,6 @@ module.exports = {
   getUserBoards,
   getBoard,
   updateBoardName,
-  updateBoardColumnsPos,
+  updateBoardColumnsOrder,
   removeBoard,
 };
