@@ -9,7 +9,7 @@ router.get('/', controllers.getUserBoards);
 router.get('/:id', controllers.getBoard);
 
 router.patch(
-  '/',
+  '/:id',
   validateBoardName,
   controllers.updateBoardName,
 );

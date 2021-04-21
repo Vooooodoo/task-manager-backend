@@ -59,12 +59,13 @@ const getBoard = async (req, res, next) => {
 
 const updateBoardName = async (req, res, next) => {
   try {
-    const { id, name } = req.body;
+    const { name } = req.body;
+    console.log(req.params.id);
 
     const board = await models.Board.update(
       { name },
       {
-        where: { id },
+        where: { id: req.params.id },
       },
     );
 
