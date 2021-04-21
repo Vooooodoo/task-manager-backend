@@ -52,12 +52,12 @@ const getBoardColumns = async (req, res, next) => {
 
 const updateColumnName = async (req, res, next) => {
   try {
-    const { id, name } = req.body;
+    const { name } = req.body;
 
     const column = await models.Column.update(
       { name },
       {
-        where: { id },
+        where: { id: req.params.id },
       },
     );
 
@@ -75,12 +75,12 @@ const updateColumnName = async (req, res, next) => {
 
 const updateColumnTasksOrder = async (req, res, next) => {
   try {
-    const { id, tasksOrder } = req.body;
+    const { tasksOrder } = req.body;
 
     const column = await models.Column.update(
       { tasksOrder },
       {
-        where: { id },
+        where: { id: req.params.id },
       },
     );
 
@@ -98,15 +98,13 @@ const updateColumnTasksOrder = async (req, res, next) => {
 
 const removeColumn = async (req, res, next) => {
   try {
-    const { id } = req.body;
-
-    const column = await models.Column.findByPk(id);
+    const column = await models.Column.findByPk(req.params.id);
 
     if (!column) {
       throw columnNotFoundErr;
     }
 
-    await models.Column.destroy({ where: { id } });
+    await models.Column.destroy({ where: { id: req.params.id } });
 
     res.json({
       message: 'The column was successfully deleted.',

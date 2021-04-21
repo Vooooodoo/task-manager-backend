@@ -8,12 +8,12 @@ router.post('/', validateBoardName, controllers.createColumn);
 router.get('/', controllers.getBoardColumns);
 
 router.patch(
-  '/',
+  '/:id',
   validateBoardName,
   controllers.updateColumnName,
 );
-router.patch('/tasks-pos', controllers.updateColumnTasksOrder);
+router.patch('/:id/tasks-order', controllers.updateColumnTasksOrder);
 
-router.delete('/', controllers.removeColumn);
+router.delete('/:id', controllers.removeColumn);
 
 module.exports = router;
