@@ -13,8 +13,8 @@ module.exports = {
         type: Sequelize.INTEGER,
       },
       roleId: {
-        type: Sequelize.INTEGER,
-        defaultValue: 0,
+        type: Sequelize.ENUM('admin', 'user'),
+        defaultValue: 'user',
       },
       firstName: {
         allowNull: false,
