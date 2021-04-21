@@ -26,8 +26,7 @@ const validateUserInfo = celebrate({
 
 const validateUserRoleId = celebrate({
   body: Joi.object().keys({
-    id: Joi.number().required(),
-    roleId: Joi.number().required(),
+    roleId: Joi.string().required().pattern(/^(admin|user)$/),
   }),
 });
 

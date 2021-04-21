@@ -95,13 +95,13 @@ const updateUserAvatar = async (req, res) => {
 
 const updateUserRoleId = async (req, res, next) => {
   try {
-    const { id, roleId } = req.body;
+    const { roleId } = req.body;
 
     const user = await models.User.update(
       { roleId },
       {
         where: {
-          id,
+          id: req.params.id,
         },
         returning: true,
         plain: true,

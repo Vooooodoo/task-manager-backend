@@ -13,7 +13,7 @@ router.get('/', controllers.getAllUsers);
 router.get('/me', controllers.getUser);
 
 router.patch('/me/info', validateUserInfo, controllers.updateUserInfo);
-router.patch('/me/role-id', validateUserRoleId, controllers.updateUserRoleId);
+router.patch('/:id/role-id', validateUserRoleId, controllers.updateUserRoleId);
 
 router.post('/me/avatar', multerMiddleware, controllers.updateUserAvatar);
 
