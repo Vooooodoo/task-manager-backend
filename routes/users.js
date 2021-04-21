@@ -5,7 +5,6 @@ const { multerMiddleware } = require('../middlewares/avatar');
 const {
   validateUserInfo,
   validateUserRoleId,
-  validateUserId,
 } = require('../middlewares/reqValidation');
 
 const controllers = require('../controllers/users');
@@ -13,11 +12,11 @@ const controllers = require('../controllers/users');
 router.get('/', controllers.getAllUsers);
 router.get('/me', controllers.getUser);
 
-router.patch('/me', validateUserInfo, controllers.updateUserInfo);
-router.patch('/', validateUserRoleId, controllers.updateUserRoleId);
+router.patch('/me/info', validateUserInfo, controllers.updateUserInfo);
+router.patch('/me/role-id', validateUserRoleId, controllers.updateUserRoleId);
 
 router.post('/me/avatar', multerMiddleware, controllers.updateUserAvatar);
 
-router.delete('/', validateUserId, controllers.removeUser);
+router.delete('/:id', controllers.removeUser);
 
 module.exports = router;

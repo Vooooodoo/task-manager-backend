@@ -123,15 +123,13 @@ const updateUserRoleId = async (req, res, next) => {
 
 const removeUser = async (req, res, next) => {
   try {
-    const { id } = req.body;
-
-    const user = await models.User.findByPk(id);
+    const user = await models.User.findByPk(req.params.id);
 
     if (!user) {
       throw userNotFoundErr;
     }
 
-    await models.User.destroy({ where: { id } });
+    await models.User.destroy({ where: { id: req.params.id } });
 
     res.status(200).json({
       message: 'The user was successfully deleted.',

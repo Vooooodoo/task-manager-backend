@@ -24,12 +24,6 @@ const validateUserInfo = celebrate({
   }),
 });
 
-const validateUserId = celebrate({
-  body: Joi.object().keys({
-    id: Joi.number().required(),
-  }),
-});
-
 const validateUserRoleId = celebrate({
   body: Joi.object().keys({
     id: Joi.number().required(),
@@ -56,7 +50,6 @@ module.exports = {
   validateLogin,
   validateUserInfo,
   validateUserRoleId,
-  validateUserId,
   validateBoardName,
   validateTaskText,
 };
