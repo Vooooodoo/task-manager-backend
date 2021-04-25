@@ -1,4 +1,4 @@
-const handleErr = ((err, req, res, next) => {
+const handleErr = ((err, req, res) => {
   const { statusCode = 500, message } = err;
 
   res
@@ -8,8 +8,6 @@ const handleErr = ((err, req, res, next) => {
         ? 'An error occurred on the server.'
         : message,
     });
-
-  next();
 });
 
 module.exports = handleErr;
